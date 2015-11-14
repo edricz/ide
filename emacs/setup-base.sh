@@ -27,7 +27,7 @@ curl -sSL -o /tmp/python3.tgz https://www.python.org/ftp/python/${PYTHON_VERSION
 mkdir -p /tmp/python3
 tar -xz -C /tmp/python3 -f /tmp/python3.tgz --strip-components=1
 cd /tmp/python3
-./configure --prefix=/usr && make && make install
+./configure --prefix=/usr && make && make altinstall
 cd /tmp
 rm -rf python3*
 
