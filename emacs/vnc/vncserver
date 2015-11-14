@@ -1,0 +1,82 @@
+#!/bin/sh -e
+### BEGIN INIT INFO
+# Provides:          vncserver
+# Required-Start:    $network $remote_fs $syslog
+# Required-Stop:     $network $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+### END INIT INFO
+
+# -*- mode: sh -*-
+
+# The Username:Group that will run VNC
+export USER='__USER__'
+
+# Using VNC password with no encryption.
+SECURITY="-Password='__PASSWORD__' -SecurityTypes=VncAuth -UserPasswdVerifier=VncAuth"
+
+# Number of displays to create
+DISPLAYS="1 2 3"
+
+# Color depth (between 8 and 32)
+DEPTH="24"
+
+# Common Video Resolutions
+sizes="640x480" # VGA, lowest allowed resolution
+sizes="${sizes},768x576" # PAL
+sizes="${sizes},800x600" # SVGA
+sizes="${sizes},1024x768" # XGA
+sizes="${sizes},1280x854" #
+sizes="${sizes},1280x960" #
+sizes="${sizes},1280x1024" # SXGA
+sizes="${sizes},1400x1050" # SXGA+
+sizes="${sizes},1600x1200" # UXGA
+sizes="${sizes},2048x1536" # QXGA
+sizes="${sizes},800x480" # WVGA
+sizes="${sizes},854x480" # FWVGA
+sizes="${sizes},1024x600" # WSVGA
+sizes="${sizes},1152x768" #
+sizes="${sizes},1280x720" # HD 720
+sizes="${sizes},1280x768" # WXGA
+sizes="${sizes},1366x768" #
+sizes="${sizes},1280x800" # WXGA2?
+sizes="${sizes},1440x900" #
+sizes="${sizes},1440x960" #
+sizes="${sizes},1680x1050" # WSXGA+
+sizes="${sizes},1920x1080" # HD 1080
+sizes="${sizes},2048x1080" # 2K
+sizes="${sizes},1920x1200" # WUXGA
+sizes="${sizes},2560x1440" # QHD
+sizes="${sizes},2560x1600" # WQXGA
+sizes="${sizes},2560x1700" # Chromebook Pixel
+sizes="${sizes},2560x2048" # QSXGA
+
+sizes="${sizes},5120x1440" # QHDx2
+
+# StartUI=1 is required to enable copy/paste support
+OPTIONS="-depth ${DEPTH} -randr=${sizes} -StartUI=1"
+
+. /lib/lsb/init-functions
+
+case "$1" in
+start)
+for DISPLAY in $DISPLAYS; do
+    log_action_begin_msg "Starting vncserver for user '${USER}' on localhost:${DISPLAY}"
+    su ${USER} -c "/usr/bin/vncserver ${OPTIONS} ${SECURITY} :${DISPLAY}"
+done
+;;
+
+stop)
+for DISPLAY in $DISPLAYS; do
+    log_action_begin_msg "Stoping vncserver for user '${USER}' on localhost:${DISPLAY}"
+    su ${USER} -c "/usr/bin/vncserver -kill :${DISPLAY}"
+done
+;;
+
+restart)
+$0 stop
+$0 start
+;;
+esac
+
+exit 0
