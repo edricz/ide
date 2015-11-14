@@ -2,8 +2,10 @@
 
 # This script will install base package required by other installation scripts.
 #
-# Usage:   setup-base.sh
-# Example: setup-base.sh
+# Usage:   setup-base.sh <user>
+# Example: setup-base.sh ezhu
+
+user=$1
 
 # install Google PPA key and add Chrome repo
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -16,6 +18,8 @@ add-apt-repository -y ppa:git-core/ppa
 
 apt-get update
 apt-get install -y curl git build-essential google-chrome-stable
+
+su ${user} -c "git config --global push.default simple"
 
 # upgrade python3
 PYTHON_VERSION=3.5.0
