@@ -17,7 +17,7 @@ fi
 add-apt-repository -y ppa:git-core/ppa
 
 apt-get update
-apt-get install -y curl git build-essential google-chrome-stable
+apt-get install -y curl git build-essential zlib1g-dev libbz2-dev liblzma-dev libssl-dev ca-certificates google-chrome-stable
 
 su ${user} -c "git config --global push.default simple"
 
@@ -27,7 +27,7 @@ curl -sSL -o /tmp/python3.tgz https://www.python.org/ftp/python/${PYTHON_VERSION
 mkdir -p /tmp/python3
 tar -xz -C /tmp/python3 -f /tmp/python3.tgz --strip-components=1
 cd /tmp/python3
-./configure --enable-shared --prefix=/usr && make && make altinstall
+./configure --prefix=/usr && make && make altinstall
 cd /tmp
 rm -rf python3*
 
