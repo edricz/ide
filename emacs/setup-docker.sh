@@ -15,4 +15,4 @@ apt-get update && apt-get install -y --force-yes apparmor lxc-docker
 
 gpasswd -a $user docker
 
-#pip install docker-compose
+pip install docker-compose
