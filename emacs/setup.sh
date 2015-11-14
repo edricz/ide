@@ -11,7 +11,8 @@ if [ $(id -u) != 0 ]; then echo "Must run as root!"; exit 1; fi
 
 dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-$dir/setup-base.sh
+$dir/setup-base.sh $user
 $dir/setup-user.sh $user
 $dir/setup-emacs.sh $user
 $dir/setup-vnc.sh $user
+$dir/setup-docker.sh $user
