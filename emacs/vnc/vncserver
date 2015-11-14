@@ -16,7 +16,7 @@ export USER='__USER__'
 SECURITY="-Password='__PASSWORD__' -SecurityTypes=VncAuth -UserPasswdVerifier=VncAuth"
 
 # Number of displays to create
-DISPLAYS="1 2 3"
+DISPLAYS="1"
 
 # Color depth (between 8 and 32)
 DEPTH="24"
