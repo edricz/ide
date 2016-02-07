@@ -8,7 +8,7 @@
 # Example: setup-emacs.sh ezhu
 
 user=$1
-version=24.5
+readonly version="24.5"
 
 # find where fonts/scripts are located
 dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
@@ -20,22 +20,35 @@ if [ ! -d ${dir}/emacs/fonts -o ! -d ${dir}/emacs/lisp ] ; then
     exit 1
 fi
 
-# pre-seed the install to automate postfix package installation
-debconf-set-selections <<EOF
-postfix postfix/mailname string localhost
-EOF
-debconf-set-selections <<EOF
-postfix postfix/main_mailer_type string 'No configuration'
-EOF
+# install dependencies
+sudo apt-get -qq update
+sudo apt-get -qq install -y stow build-essential libx11-dev xaw3dg-dev \
+     libjpeg-dev libpng12-dev libgif-dev libtiff5-dev libncurses5-dev \
+     libxft-dev librsvg2-dev libmagickcore-dev libmagick++-dev \
+     libxml2-dev libgpm-dev libotf-dev libm17n-dev \
+     libgnutls-dev wget stow
 
-# install emacs24 build dependencies
-apt-get build-dep -y emacs24
+# download source package
+if [[ ! -d emacs-"$version" ]]; then
+   wget http://ftp.gnu.org/gnu/emacs/emacs-"$version".tar.xz
+   tar xvf emacs-"$version".tar.xz
+fi
 
-# install emacs from source, since no PPA is available
-curl -SL http://ftp.gnu.org/gnu/emacs/emacs-${version}.tar.gz -o /tmp/emacs.tgz
-tar -xz -C /tmp -f /tmp/emacs.tgz
-cd /tmp/emacs* && ./configure && make
-make install
+# build and install
+sudo mkdir -p /usr/local/stow
+cd emacs-"$version"
+./configure \
+    --with-xft \
+    --with-x-toolkit=lucid
+make
+sudo make \
+    install-arch-dep \
+    install-arch-indep \
+    prefix=/usr/local/stow/emacs-"$version"
+
+# management package with stow
+cd /usr/local/stow
+stow emacs-"$version"
 
 # move font files to the correct location
 mkdir -p /usr/share/fonts/truetype/ubuntu-font-family
@@ -61,5 +74,7 @@ pip install jedi epc pylint
 # cleanup
 cd /tmp
 rm -rf /tmp/emacs*
+cd $dir
+rm -rf emacs-${version}*
 
 echo Okay!

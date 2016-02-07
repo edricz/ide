@@ -22,7 +22,7 @@ apt-get install -y curl git build-essential zlib1g-dev libbz2-dev liblzma-dev li
 su ${user} -c "git config --global push.default simple"
 
 # upgrade python3
-PYTHON_VERSION=3.5.0
+PYTHON_VERSION=3.5.1
 curl -sSL -o /tmp/python3.tgz https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz
 mkdir -p /tmp/python3
 tar -xz -C /tmp/python3 -f /tmp/python3.tgz --strip-components=1
