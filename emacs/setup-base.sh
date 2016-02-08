@@ -17,7 +17,7 @@ fi
 add-apt-repository -y ppa:git-core/ppa
 
 apt-get update
-apt-get install -y curl git build-essential zlib1g-dev libbz2-dev liblzma-dev libssl-dev ca-certificates google-chrome-stable
+apt-get install -y curl git build-essential zlib1g-dev libbz2-dev liblzma-dev libssl-dev libsqlite3-dev ca-certificates google-chrome-stable
 
 su ${user} -c "git config --global push.default simple"
 
