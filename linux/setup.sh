@@ -14,5 +14,6 @@ dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 $dir/setup-base.sh $user
 $dir/setup-user.sh $user
 $dir/setup-emacs.sh $user
+$dir/setup-java.sh
 $dir/setup-vnc.sh $user
 $dir/setup-docker.sh $user
