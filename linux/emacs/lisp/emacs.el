@@ -198,6 +198,13 @@
 ;; auto generate paired paren, quotes, etc across all buffers
 (electric-pair-mode 1)
 
+;; support yml files
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(add-hook 'yaml-mode-hook
+        (lambda ()
+            (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+
 ;;(require 'magit) ;; git integration
 ;;(require 'yasnippet)
 ;;(require 'flycheck)
