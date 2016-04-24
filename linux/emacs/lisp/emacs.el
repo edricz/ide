@@ -5,7 +5,6 @@
 ;; This is my emacs customization script, intendeted to replace ~/.emacs.
 ;; The script has customization for the following languages:
 ;;   * C/C++
-;;   * PHP
 ;;   * Python
 ;;   * HTML
 
@@ -63,6 +62,11 @@
 (set-language-environment "latin-1") ;; set input environment to English
 (setq default-input-method "latin-1-prefix") ;; can toggle-input-method' (C-\)
 (setq-default fill-column 99) ;; I have really wide screens :-)
+
+;; initialize emacs package manager, which is available in emacs v2.4 and later
+(require 'package)
+(package-initialize)
+(elpy-enable)
 
 ;; split frame into 9 windows
 (defun split-window-9x100 ()
@@ -156,10 +160,6 @@
 (add-hook 'c-initialization-hook
           (lambda() (define-key c-mode-base-map "\C-m" 'c-context-line-break)))
 
-;; initialize emacs package manager, which is available in emacs v2.4 and later
-(require 'package)
-(package-initialize)
-
 ;; add Windows specific initialization
 (if (eq system-type 'windows-nt) (load "~/Dropbox/notes/emacs/windows.el"))
 
@@ -196,43 +196,42 @@
 (require 'xcscope)
 
 ;; auto generate paired paren, quotes, etc across all buffers
-(require 'autopair)
-(autopair-global-mode)
+(electric-pair-mode 1)
 
-(require 'magit) ;; git integration
-(require 'yasnippet)
-(require 'flycheck)
-(global-flycheck-mode t)
+;;(require 'magit) ;; git integration
+;;(require 'yasnippet)
+;;(require 'flycheck)
+;;(global-flycheck-mode t)
 
 ;; code auto completion
-(require 'auto-complete)
-(setq
- ac-auto-start 2
- ac-override-local-map nil
- ac-use-menu-map t
- ac-candidate-limit 20)
+;; (require 'auto-complete)
+;; (setq
+;;  ac-auto-start 2
+;;  ac-override-local-map nil
+;;  ac-use-menu-map t
+;;  ac-candidate-limit 20)
 
 ;; Python mode settings
-(require 'python-mode)
-(add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
-(setq py-electric-colon-active t)
-(add-hook 'python-mode-hook 'autopair-mode)
-(add-hook 'python-mode-hook 'yas-minor-mode)
-(add-hook 'python-mode-hook 'auto-complete-mode)
-(add-hook 'python-mode-hook 'flyspell-prog-mode)
-(require 'jedi)
-(add-hook 'python-mode-hook
-	  (lambda ()
-	    (jedi:setup)
-	    (jedi:ac-setup)
-            (local-set-key "\C-cd" 'jedi:show-doc)
-            (local-set-key (kbd "M-SPC") 'jedi:complete)
-            (local-set-key (kbd "M-.") 'jedi:goto-definition)
-            (modify-syntax-entry ?_ "_")
-            (setq py-docstring-fill-column 90
-                  py-comment-fill-column 90)
-            (subword-mode 1)
-            (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)))
+;; (require 'python-mode)
+;; (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+;; (setq py-electric-colon-active t)
+;; (add-hook 'python-mode-hook 'autopair-mode)
+;; (add-hook 'python-mode-hook 'yas-minor-mode)
+;; (add-hook 'python-mode-hook 'auto-complete-mode)
+;; (add-hook 'python-mode-hook 'flyspell-prog-mode)
+;; (require 'jedi)
+;; (add-hook 'python-mode-hook
+;; 	  (lambda ()
+;; 	    (jedi:setup)
+;; 	    (jedi:ac-setup)
+;;             (local-set-key "\C-cd" 'jedi:show-doc)
+;;             (local-set-key (kbd "M-SPC") 'jedi:complete)
+;;             (local-set-key (kbd "M-.") 'jedi:goto-definition)
+;;             (modify-syntax-entry ?_ "_")
+;;             (setq py-docstring-fill-column 90
+;;                   py-comment-fill-column 90)
+;;             (subword-mode 1)
+;;             (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)))
 
 ;; turn on color in compile mode
 (require 'ansi-color)
@@ -257,11 +256,6 @@
 (add-hook 'nxml-mode-hook
           '(lambda() (setq indent-tabs-mode nil
                            tab-width 80)))
-
-;; PHP mode settings
-(require 'php-mode)
-(add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
-(add-hook 'php-mode-hook 'my-c-mode-common-hook)
 
 (ido-mode t)
 

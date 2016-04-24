@@ -7,6 +7,8 @@
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
+(add-to-list 'package-archives
+             '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 
 ;; update package list from internet
 (package-refresh-contents)
@@ -16,19 +18,30 @@
   (unless (package-installed-p package)
     (package-install package)))
 
-;; install packages
 (setq to-install
-      '(php-mode
+      '(elpy
         rw-ispell
         rw-hunspell
         xcscope
-        python-mode
-        markdown-mode
         magit
-        yasnippet
-        jedi
-        auto-complete
-        autopair
-        find-file-in-repository
-        flycheck))
+        markdown-mode
+        yaml-mode))
 (mapc 'install-if-needed to-install)
+(elpy-enable)
+
+;; ;; install packages
+;; (setq to-install
+;;       '(php-mode
+;;         rw-ispell
+;;         rw-hunspell
+;;         xcscope
+;;         markdown-mode
+;;         yaml-mode
+;;         magit
+;;         yasnippet
+;;         jedi
+;;         auto-complete
+;;         autopair
+;;         find-file-in-repository
+;;         flycheck))
+;; (mapc 'install-if-needed to-install)
