@@ -9,26 +9,18 @@ user=$1
 
 # install Google PPA key and add Chrome repo
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+touch /etc/apt/sources.list.d/google-chrome.list
 if ! grep 'http://dl.google.com/linux/chrome/deb/' /etc/apt/sources.list.d/google-chrome.list; then
     sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 fi
 
-# use git-core PPA to get latest version of git
-add-apt-repository -y ppa:git-core/ppa
-
 apt-get update
-apt-get install -y curl git build-essential zlib1g-dev libbz2-dev liblzma-dev libssl-dev libsqlite3-dev ca-certificates google-chrome-stable
+apt-get install -y curl git python python-pip python3 python3-pip build-essential zlib1g-dev libbz2-dev liblzma-dev libssl-dev libsqlite3-dev ca-certificates google-chrome-stable
+
+pip install --upgrade pip
+pip3 install --upgrade pip
 
 su ${user} -c "git config --global push.default simple"
 
-# upgrade python3
-PYTHON_VERSION=3.5.1
-curl -sSL -o /tmp/python3.tgz https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz
-mkdir -p /tmp/python3
-tar -xz -C /tmp/python3 -f /tmp/python3.tgz --strip-components=1
-cd /tmp/python3
-./configure --prefix=/usr && make && make altinstall
-cd /tmp
-rm -rf python3*
 
 echo Okay!

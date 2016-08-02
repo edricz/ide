@@ -8,10 +8,17 @@
 
 user=$1
 
-[ -e /usr/lib/apt/methods/https ] || { sudo apt-get update; sudo apt-get install apt-transport-https; }
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
-echo deb https://get.docker.io/ubuntu docker main > /etc/apt/sources.list.d/docker.list
-apt-get update && apt-get install -y --force-yes apparmor lxc-docker
+apt-get update
+apt-get install -y apt-transport-https ca-certificates
+
+apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+touch /etc/apt/sources.list.d/docker.list
+if ! grep 'https://apt.dockerproject.org/repo' /etc/apt/sources.list.d/docker.list; then
+    sudo sh -c 'echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" >> /etc/apt/sources.list.d/docker.list'
+fi
+
+apt-get update
+apt-get install -y docker-engine
 
 gpasswd -a $user docker
 

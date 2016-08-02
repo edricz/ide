@@ -22,13 +22,13 @@ fi
 # Based on article at https://www.realvnc.com/products/vnc/deployment/script/
 
 # quit if already installed
-if [ -x /usr/bin/vncserver ]; then
-    exit 0
-fi
+#if [ -x /usr/bin/vncserver ]; then
+#    exit 0
+#fi
 
 ############# Download VNC #############
 # Download and unpack the latest VNC on a 64-bit Debian-compatible system:
-curl -L -o /tmp/vnc.tgz https://www.realvnc.com/download/binary/latest/debian/64-bit/
+curl -L -o /tmp/vnc.tgz https://www.realvnc.com/download/file/vnc.files/VNC-5.2.3-Linux-x64-DEB.tar.gz
 tar -xz -C /tmp -f /tmp/vnc.tgz
 rm /tmp/vnc.tgz
 
@@ -42,7 +42,7 @@ rm /tmp/VNC*.deb
 # Mandatory. More information:
 # man vnclicense
 # Apply a free license
-vnclicense -add MAB32-DHDLC-Z6CQH-RGNR2-8UNBA
+vnclicense -add MD222-NH38N-28LNH-NBE73-Q7MCA
 
 ############# Setup X11 Windows Environment #############
 # Mandatory for a headless system without X11. Recommended for Ubuntu 13.04+ and Fedora 19+. 
@@ -53,6 +53,10 @@ apt-get install -y --no-install-recommends lxde x11-xserver-utils xauth
 # Use LXDE instead of the console desktop environment (if any) for all virtual desktops:
 echo -e '#!/bin/sh\nDESKTOP_SESSION=LXDE\nexport DESKTOP_SESSION\nstartlxde\nvncserver-virtual -kill $DISPLAY' | sudo tee /etc/vnc/xstartup.custom
 chmod +x /etc/vnc/xstartup.custom
+
+# copy over custom shortcuts
+mkdir -p /home/${vnc_user}/.config/openbox
+cp ${dir}/vnc/lxde-rc.xml /home/${vnc_user}/.config/openbox/lxde-rc.xml
 
 ############# Run VNC in User Mode #############
 cp ${dir}/vnc/vncserver /etc/init.d/vncserver

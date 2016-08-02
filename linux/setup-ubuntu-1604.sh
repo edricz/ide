@@ -7,6 +7,7 @@ user=$1
 #
 
 # install Google PPA key and add Chrome repo
+touch /etc/apt/sources.list.d/google-chrome.list
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 if ! grep 'http://dl.google.com/linux/chrome/deb/' /etc/apt/sources.list.d/google-chrome.list; then
     sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
@@ -81,6 +82,7 @@ apt-get install -y hunspell
 
 # install python virtualenv
 apt-get install -y python-pip
+pip2 install virtualenvwrapper 
 pip install virtualenvwrapper 
 
 read -r -d '' cmds <<EOF || true

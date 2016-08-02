@@ -5,7 +5,7 @@
 # Usage:   setup-java.sh
 
 # Install Java 8
-JAVA_VERSION=8 JAVA_UPDATE=73 JAVA_BUILD=02 JAVA_HOME=/usr/local/lib/java
+JAVA_VERSION=8 JAVA_UPDATE=101 JAVA_BUILD=13 JAVA_HOME=/usr/local/lib/java
 JAVA_URL="http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION}u${JAVA_UPDATE}-b${JAVA_BUILD}/jdk-${JAVA_VERSION}u${JAVA_UPDATE}-linux-x64.tar.gz"
 PATH=$PATH:${JAVA_HOME}/bin
 wget --no-cookies \
