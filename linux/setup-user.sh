@@ -30,6 +30,7 @@ if [ $(domainname) == '(none)' ]; then
 else
     email="${user}@$(hostname).$(domainname)"
 fi
+su ${user} -c "git config --global push.default simple"
 su ${user} -c "git config --global user.email ${email}"
 su ${user} -c "git config --global user.name ${user}"
 
@@ -61,4 +62,8 @@ EOF
 
 fi
 
-echo Okay!
+echo
+echo '###############################'
+echo '# User Environment Configured #'
+echo '###############################'
+echo

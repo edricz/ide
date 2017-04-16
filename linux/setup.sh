@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-# This is the base setup script to configure a clean Kubuntu 14.04 install.
+# This is the base setup script to configure a clean Kubuntu 16.04 install.
 #
 # Usage:   setup.sh <user>
 # Example: setup.sh ezhu
@@ -14,6 +14,5 @@ dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 $dir/setup-base.sh $user
 $dir/setup-user.sh $user
 $dir/setup-emacs.sh $user
-$dir/setup-java.sh
 $dir/setup-vnc.sh $user
 $dir/setup-docker.sh $user

@@ -42,7 +42,7 @@ rm /tmp/VNC*.deb
 # Mandatory. More information:
 # man vnclicense
 # Apply a free license
-vnclicense -add MD222-NH38N-28LNH-NBE73-Q7MCA
+vnclicense -add F2HNH-RB34G-KP5RB-NBSVB-TJD9A
 
 ############# Setup X11 Windows Environment #############
 # Mandatory for a headless system without X11. Recommended for Ubuntu 13.04+ and Fedora 19+. 
@@ -67,4 +67,9 @@ sed -i "s/__PASSWORD__/${vnc_passwd}/" /etc/init.d/vncserver
 update-rc.d vncserver defaults
 service vncserver start
 
-echo Okay!
+
+echo
+echo '########################'
+echo '# VNC Server Installed #'
+echo '########################'
+echo

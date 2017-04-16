@@ -15,12 +15,17 @@ if ! grep 'http://dl.google.com/linux/chrome/deb/' /etc/apt/sources.list.d/googl
 fi
 
 apt-get update
-apt-get install -y curl git python python-pip python3 python3-pip build-essential zlib1g-dev libbz2-dev liblzma-dev libssl-dev libsqlite3-dev ca-certificates google-chrome-stable
 
+# install base packages
+apt install -y curl git python-pip python3-pip 
 pip install --upgrade pip
 pip3 install --upgrade pip
 
-su ${user} -c "git config --global push.default simple"
+# install extra packages
+apt install -y google-chrome-stable
 
-
-echo Okay!
+echo
+echo '###########################'
+echo '# Base Packages Installed #'
+echo '###########################'
+echo
