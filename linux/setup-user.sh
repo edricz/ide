@@ -34,6 +34,12 @@ su ${user} -c "git config --global push.default simple"
 su ${user} -c "git config --global user.email ${email}"
 su ${user} -c "git config --global user.name ${user}"
 
+# enable boot into text terminal
+sed -i 's|GRUB_CMDLINE_LINUX=""|GRUB_CMDLINE_LINUX="text"|' /etc/default/grub
+sed -i 's|#GRUB_TERMINAL|GRUB_TERMINAL|' /etc/default/grub
+update-grub
+systemctl set-default multi-user.target
+
 # move over RSA private key
 if [ -f /tmp/key.rsa ] ; then
     mkdir -p /home/${user}/.ssh
