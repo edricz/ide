@@ -14,7 +14,8 @@ if ! grep 'http://dl.google.com/linux/chrome/deb/' /etc/apt/sources.list.d/googl
     sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 fi
 
-apt-get update
+apt update
+apt -y upgrade
 
 # install base packages
 apt install -y curl git python-pip python3-pip 
