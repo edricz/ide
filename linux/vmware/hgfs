@@ -1,0 +1,32 @@
+#!/bin/sh -e
+### BEGIN INIT INFO
+# Provides:          hgfs
+# Required-Start:    $network $remote_fs $syslog
+# Required-Stop:     $network $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+### END INIT INFO
+
+# -*- mode: sh -*-
+
+# Where to mount hgfs directory
+export USER='__USER__'
+
+. /lib/lsb/init-functions
+
+case "$1" in
+start)
+su ${USER} -c "/usr/bin/vmhgfs-fuse -o allow_other .host:/ /home/${USER}/hgfs"
+;;
+
+stop)
+umount /home/${USER}/hgfs
+;;
+
+restart)
+$0 stop
+$0 start
+;;
+esac
+
+exit 0
