@@ -16,3 +16,4 @@ $dir/setup-user.sh $user
 $dir/setup-emacs.sh $user
 $dir/setup-vnc.sh $user
 $dir/setup-docker.sh $user
+$dir/setup-gcloud.sh $user
