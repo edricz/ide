@@ -8,6 +8,8 @@
 
 vnc_user=$1
 vnc_passwd=${2:-5ab2cdc0badcaf13} # default to empty password
+# Command to generate VNC password:
+# vnc_passwd=$(echo "HackersRUs" | vncpasswd -p Password /tmp/secret &> /dev/null && cat /tmp/secret |awk -F= '{print $2}')
 
 # find where config scripts are located
 dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )

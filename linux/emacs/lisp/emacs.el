@@ -164,10 +164,10 @@
 (if (eq system-type 'windows-nt) (load "~/Dropbox/notes/emacs/windows.el"))
 
 ;; enable spell checking
-(require 'rw-ispell)
-(require 'rw-hunspell)
-(setq rw-hunspell-use-rw-ispell t)
-(setq ispell-program-name "hunspell")
+;; (require 'rw-ispell)
+;; (require 'rw-hunspell)
+;; (setq rw-hunspell-use-rw-ispell t)
+;; (setq ispell-program-name "hunspell")
 (require 'flyspell)
 (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
 (autoload 'flyspell-delay-command "flyspell" "Delay on command." t)

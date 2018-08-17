@@ -18,7 +18,7 @@ apt update
 apt -y upgrade
 
 # install base packages
-apt install -y curl git python-pip python3-pip 
+apt install -y curl vim git python-pip python3-pip
 pip install --upgrade pip
 pip3 install --upgrade pip
 

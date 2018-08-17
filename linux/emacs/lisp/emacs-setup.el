@@ -20,8 +20,9 @@
 
 (setq to-install
       '(elpy
-        rw-ispell
-        rw-hunspell
+;;        rw-language-and-country-codes
+;;        rw-ispell
+;;        rw-hunspell
         xcscope
         magit
         markdown-mode
